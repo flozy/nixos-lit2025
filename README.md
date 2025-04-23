@@ -1266,22 +1266,3 @@ nix-store --verify --check-contents --repair
 nix-env --list-generations --profile /nix/var/nix/profiles/system
 nix-env --switch-generation NRXXXX -p /nix/var/nix/profiles/system
 ```
-
-
----
----
----
----
-
-
-
-# TODO:
-```
-User: lit
-Passw: test123
-
-Eigene Datei für Passwörter
-
-Server
-* Nextcloud Selber installieren
-* Testen alles evt. SSL 
