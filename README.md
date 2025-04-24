@@ -24,7 +24,7 @@ Durch die Verwendung von NixOS lernst du die Vorteile eines systemspezifischen A
 Der Workshop richtet sich an alle, die sich für NixOS interessieren. Er ist so gestaltet, dass auch Personen teilnehmen können, die sich mit Linux noch nicht so gut auskennen. Wir freuen uns darauf, gemeinsam mit dir zu lernen und die Grundlagen von NixOS zu erkunden!
 
 
-## Nachteile
+## NixOS Nachteile
 
 ### Komplett anders als klassisches Linux
 * Die Nix-Sprache ist funktional und unterscheidet sich stark von klassischen Konfigurationsformaten
@@ -41,7 +41,7 @@ Der Workshop richtet sich an alle, die sich für NixOS interessieren. Er ist so 
 * Manchmal gibt es ein Ruckeln oder Aussetzer auf meinem System während Updates vor allem beim kompilieren
 
 
-## Wird oft als Nachteil genannt - Sehe ich nicht als Nachteil
+## NixOS - Wird oft als Nachteil genannt - Sehe ich nicht als Nachteil
 ### Community-getrieben
 * Kein kommerzieller Support wie bei RedHat oder Ubuntu LTS.
 * Hilfe ist stark von der aktiven, aber kleinen Community abhängig.
@@ -54,7 +54,7 @@ Systemverwaltung erfordert Umdenken
 
 
 
-## Vorteile 
+## NixOS Vorteile
 ### Reproduzierbare Systemkonfiguration
 * Die gesamte Systemkonfiguration wird in einer einzigen Konfigurationsdatei (configuration.nix) beschrieben.
 * Ideal für unsere Zwecke und auch (DevOps, Infrastruktur als Code)
@@ -281,22 +281,25 @@ SSH einschalten in - ```/etc/nixos/configuration```
 ```
 nano /etc/nixos/configuration.nix
 ```
+ Die Zeile auskommentieren
 ```
-# Die Zeile auskommentieren
 services.openssh.enable = true;
-
-# kann auch anders geschrieben werden
+```
+Kann auch anders geschrieben werden
+```
 services.openssh = {
     enable = true;
 };
-
-# dem User lit den Login erlauben
+```
+Dem User lit den Login erlauben
+```
 services.openssh = {
     enable = true;
     settings.AllowUsers = [ "lit" ];
 };
-
-# Wenn mehrere User erlaubt sind wir das wie folgt geschrieben
+```
+Wenn mehrere User erlaubt sind wir das wie folgt geschrieben
+```
 settings.AllowUsers = [ "lit" "user1" "user2" "user3" ];
 ```
 
@@ -328,35 +331,45 @@ nix-collect-garbage -d && nix-channel -–update && nixos-rebuild switch -–upg
 ```
 
 ### Programm Ausprobieren
+
+Was läuft auf meinem System
 ```
-# Was läuft auf meinem System
 htop
-# Mit folgendem Befehl kann ich Programme temporär installieren
-nix-shell -p [Paket]
-# Wir installieren htop
+```
+Mit folgendem Befehl kann ich Programme temporär installieren
+```
+nix-shell -p [Paket] 
+```
+Wir installieren htop
+```
 nix-shell -p htop
-# Jetzt geht htop
+```
+Jetzt geht htop
+```
 htop
 ```
 
 ### Welche IP hat unsere VM
-```
-# Wir lassen uns die IP auf dem Host-System anzeigen, dass wir uns im nächsten Schritt darüber per SSH Einloggen können
+Wir lassen uns die IP auf dem Host-System anzeigen, dass wir uns im nächsten Schritt darüber per SSH Einloggen können
 z.B. 192.168.56.xxx
+```
 ip a
 ```
 
 ### Reboot oder Shutdown
+Wir starten neu damit wir uns über SSH einloggen können
 ```
-# Wir starten neu damit wir uns über SSH einloggen können
 reboot
-
-# Wir fahren NixOS runter damit wir uns über SSH einloggen können
+```
+Wir fahren NixOS runter damit wir uns über SSH einloggen können
+```
 shutdown -h now
 ```
 
 ### SSH-Login
+```
 ssh lit@192.168.56.xxx
+```
 
 ### htop ist wieder verschwunden
 ```
@@ -403,21 +416,22 @@ esac
 ```
 nano /etc/nixos/configuration.nix
 ```
+Die Zeile auskommentieren und htop installieren
 ```
-# Die Zeile auskommentieren
 environment.systemPackages = with pkgs; [
   htop
 ];
 ```
 
 ## User definieren und Programme nur für diesen User installieren
+iotop nur für User lit installieren
 ```
 users.users.lit = {
     isNormalUser = true;
     description = "User Linux Info Tag";
     extraGroups = [ "wheel" "dialout" "cdrom" ];
     packages = with pkgs; [
-	 iotop
+	    iotop
     ];
   };
 ```
@@ -430,15 +444,18 @@ Rollback - Wir Booten in alte Version
 ## Rollback - Dauerhaft rückgängig machen
 ```
 nixos-rebuild switch --rollback
-
-# Kann auch beim Booten einmalig temporär ausgewählt werden
+```
+Kann auch beim Booten einmalig temporär ausgewählt werden
+```
 nix-env --list-generations --profile /nix/var/nix/profiles/system
+```
+```
 nix-env --switch-generation NRXXXX -p /nix/var/nix/profiles/system
 ```
 
 ## KDE
+Enable the KDE Plasma Desktop Environment.
 ```
-# Enable the KDE Plasma Desktop Environment.
 services.displayManager.sddm.enable = true;
 services.xserver.desktopManager.plasma5.enable = true;
 ```
@@ -1214,17 +1231,23 @@ Sichert alle Datenbanken auf dem MySQL-Server auf die der Benutzer zugriff hat.
 ## Release Upgrade
 
 [Release Notes lesen](https://nixos.org/nixos/manual/release-notes.html)
+Aktuelles Release anzeigen
 ```
-# Aktuelles Release anzeigen
 nix-channel --list
+```
 
-# Neues Release hinzufügen
+Neues Release hinzufügen
+```
 nix-channel --add https://nixos.org/channels/nixos-xx.xx nixos
+```
 
-# Schauen ob es geklappt hat
+Schauen ob es geklappt hat
+```
 nix-channel --list
+```
 
-# System mit neuem Release bauen
+System mit neuem Release bauen
+```
 nix-channel --update
 nixos-rebuild --upgrade boot
 ```
@@ -1261,8 +1284,11 @@ nix-store --verify --check-contents --repair
 ```
 
 ## Rolback
+Kann auch beim Booten einmalig temporär ausgewählt werden
+
 ```
-# Kann auch beim Booten einmalig temporär ausgewählt werden
 nix-env --list-generations --profile /nix/var/nix/profiles/system
+```
+```
 nix-env --switch-generation NRXXXX -p /nix/var/nix/profiles/system
 ```
