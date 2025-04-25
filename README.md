@@ -111,7 +111,8 @@ https://nixos.wiki/wiki/NixOS_Installation_Guide
 https://channels.nixos.org/nixos-24.11/latest-nixos-minimal-x86_64-linux.iso
 
 
-### Graphical ISO Image - (Unsere Variante in diesem Workshop)
+### Graphical ISO Image
+Unsere Variante in diesem Workshop
 
 https://channels.nixos.org/nixos-24.11/latest-nixos-plasma6-x86_64-linux.iso
 
@@ -1165,7 +1166,7 @@ Und natürlich sicherst du deine Eigene Daten z.B. in
 
 ## Restore
 
-NixOS einfach wie zu Anfang mit der ISO installieren, dann die NixOS Konfigurationsdateien einspielen und einen Rebuild aulösen```nix-channel -–update && nixos-rebuild switch -–upgrade``` schon habt Ihr euer System wieder so wie es war.
+NixOS einfach wie zu Anfang mit dem [ISO Image](#graphical-iso-image) installieren, dann die NixOS Konfigurationsdateien einspielen und einen Rebuild aulösen```nix-channel -–update && nixos-rebuild switch -–upgrade``` schon habt Ihr euer System wieder so wie es war.
 
 ```
 /etc/nixos/configuration.nix
