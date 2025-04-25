@@ -1152,8 +1152,9 @@ Du brauchst nur die nixos Konfigurationsdateien (da diese das ganze System besch
 /etc/nixos/inc_samba.nix
 /etc/nixos/inc_webserver.nix
 ```
+**Info:** Einige NixOS User verwenden zum sichern der Configs GitHub. Hier muss unbedingt darauf geachtet werden, dass du dann keine Passwörter in die Config schreibst, wie z.B. im Kapitel [Internet of Things sicher im Internet frei geben](#internet-of-things-sicher-im-internet-frei-geben) 
 
-Und natürlich deine Eigene Daten z.B. in
+Und natürlich sicherst du deine Eigene Daten z.B. in
 ```
 /home/*
 /var/*
@@ -1164,7 +1165,7 @@ Und natürlich deine Eigene Daten z.B. in
 
 ## Restore
 
-NixOS einfach wie zu Anfang installieren, dann die NixOS Konfigurationsdateien einspielen und einen Rebuild aulösen```nix-channel -–update && nixos-rebuild switch -–upgrade``` schon habt Ihr euer System wieder so wie es war.
+NixOS einfach wie zu Anfang mit der ISO installieren, dann die NixOS Konfigurationsdateien einspielen und einen Rebuild aulösen```nix-channel -–update && nixos-rebuild switch -–upgrade``` schon habt Ihr euer System wieder so wie es war.
 
 ```
 /etc/nixos/configuration.nix
