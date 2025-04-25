@@ -1166,7 +1166,7 @@ Und natürlich sicherst du deine Eigene Daten z.B. in
 
 ## Restore
 
-NixOS einfach wie zu Anfang mit dem [ISO Image](#graphical-iso-image) installieren, dann die NixOS Konfigurationsdateien einspielen und einen Rebuild aulösen```nix-channel -–update && nixos-rebuild switch -–upgrade``` schon habt Ihr euer System wieder so wie es war.
+NixOS einfach wie zu Anfang mit dem [ISO Image](#graphical-iso-image) installieren, dann die NixOS Konfigurationsdateien einspielen und einen Rebuild auslösen ```nix-channel -–update && nixos-rebuild switch -–upgrade``` schon habt Ihr euer System wieder so wie es war.
 
 ```
 /etc/nixos/configuration.nix
@@ -1174,7 +1174,7 @@ NixOS einfach wie zu Anfang mit dem [ISO Image](#graphical-iso-image) installier
 /etc/nixos/inc_webserver.nix
 ```
 
-Jetzt fehlen nur noch die eingenen Dateien. Hier ggf. wieder die Verzeichnisse anlegen und die Daten rein kopieren.
+Jetzt fehlen nur noch die eigenen Dateien. Hier ggf. wieder die Verzeichnisse anlegen und die Daten rein kopieren.
 ```
 /home/*
 /var/*
@@ -1319,6 +1319,7 @@ Kann auch beim Booten einmalig temporär ausgewählt werden
 ```
 nix-env --list-generations --profile /nix/var/nix/profiles/system
 ```
+
 ```
 nix-env --switch-generation NRXXXX -p /nix/var/nix/profiles/system
 ```
