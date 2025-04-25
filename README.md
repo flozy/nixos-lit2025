@@ -1115,7 +1115,7 @@ virtualHosts."iot.domain.de" =  {
 };
 ```
 
-## SystemD
+## Systemd
 ```
 systemd.services.NameVomDienst = {
       wantedBy = [ "multi-user.target" ];
@@ -1146,14 +1146,42 @@ services.cron = {
 
 ## Backup
 
-Eigene Daten und die nix config
+Du brauchst nur die nixos Konfigurationsdateien (da diese das ganze System beschreiben)
 ```
 /etc/nixos/configuration.nix
-/home/lit
+/etc/nixos/inc_samba.nix
+/etc/nixos/inc_webserver.nix
+```
+
+Und natürlich deine Eigene Daten z.B. in
+```
+/home/*
+/var/*
 /var/www
 /var/lib/mysql/
-/var/???
+
 ```
+
+## Restore
+
+NixOS einfach wie zu Anfang installieren, dann die NixOS Konfigurationsdateien einspielen und einen Rebuild aulösen```nix-channel -–update && nixos-rebuild switch -–upgrade``` schon habt Ihr euer System wieder so wie es war.
+
+```
+/etc/nixos/configuration.nix
+/etc/nixos/inc_samba.nix
+/etc/nixos/inc_webserver.nix
+```
+
+Jetzt fehlen nur noch die eingenen Dateien. Hier ggf. wieder die Verzeichnisse anlegen und die Daten rein kopieren.
+```
+/home/*
+/var/*
+/var/www
+/var/lib/mysql/
+
+```
+
+**Nur zur Info:** in der ```configuration.nix``` könnte man auch Verzeichnisse anlegen lassen. Das mache ich der Übersichtlichkeit halber lieber selber. Da ich nach einem Restore die Daten ja auch wieder einspielen muss und dabei die Verzeichnisse anlege.
 
 ## Code Beispiele für Backup
 
