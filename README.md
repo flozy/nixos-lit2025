@@ -619,7 +619,10 @@ openssl req -newkey rsa:2048 -nodes -keyout nixos_server.key -subj "/C=DE/ST=BY/
 openssl x509 -req -extfile <(printf "subjectAltName=DNS:nixos,DNS:nixos.local") -days 3650 -in nixos_server.csr -CA nixos_ca.crt -CAkey nixos_ca.key -CAcreateserial -out nixos_server.crt
 ```
 
-
+#### Rechte setzen
+```
+chown lit:nginx -R /var/letsencrypt
+```
 
 ### SSL Root Zertifikat für DE-Domain
 
@@ -706,6 +709,11 @@ Authentifizierung via DNS:
 Ausführungsverhalten:
 * ```--noninteractive``` Führt Certbot ohne interaktive Abfragen aus - wichtig für Automatisierung (z. B. per Cronjob).
 * ```--force-renewal``` Erzwingt die Verlängerung, auch wenn das Zertifikat eigentlich noch nicht abläuft.
+
+#### Rechte setzen
+```
+chown lit:nginx -R /var/letsencrypt
+```
 
 ## Nextcloud Webserver mit NGINX und MySQL
 
