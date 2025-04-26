@@ -202,7 +202,7 @@ environment.systemPackages = with pkgs; [
 ```
 Dann führst du einfach aus:
 ```
-sudo nixos-rebuild switch -–upgrade
+sudo nixos-rebuild switch --upgrade
 ```
 
 Und NixOS:
@@ -253,7 +253,7 @@ NixOS verlinkt (symbolische Verknüpfungen!) die benötigten Programme in eine U
 ```
 /run/current-system/sw/bin/firefox -> /nix/store/abc123-firefox-123.0/bin/firefox
 ```
-Das sieht für dich aus wie ein normales System – aber es ist alles verlinkt.
+Das sieht für dich aus wie ein normales System - aber es ist alles verlinkt.
 
 ```
 /nix/store
@@ -311,13 +311,13 @@ Am besten in der Fritzbox einen anderen Port frei geben und dann auf 22 weiter l
 
 ### Update & Upgrade
 ```
-nix-channel -–update
+nix-channel --update
 
-# Ändert das System in dem ich bin aber nicht das, das beim nächsten Booten hochfährt – steht in manchen Anleitungen
+# Ändert das System in dem ich bin aber nicht das, das beim nächsten Booten hochfährt - steht in manchen Anleitungen
 nixos-rebuild switch
 
 # ich empfehle immer, da ich meine Änderungen nach einem Reboot wieder habe
-nixos-rebuild switch -–upgrade
+nixos-rebuild switch --upgrade
 ```
 
 ### Garbagecollector
@@ -328,7 +328,7 @@ nix-collect-garbage -d
 ### Gesamter Update Prozess
 ```
 #So habe ich immer den letzten Stand aber trotzdem die Platte frei
-nix-collect-garbage -d && nix-channel -–update && nixos-rebuild switch -–upgrade
+nix-collect-garbage -d && nix-channel --update && nixos-rebuild switch --upgrade
 ```
 
 ### Programm Ausprobieren
@@ -479,7 +479,7 @@ services.samba.openFirewall = true;
     # Ban IP after 5 failures
     maxretry = 5;
     ignoreIP = [
-      # Whitelist – Eigene IP im Netz
+      # Whitelist - Eigene IP im Netz
       "192.168.178.0/24"
       "deine.domain.de" # resolve the IP via DNS
     ];
@@ -704,7 +704,7 @@ Authentifizierung via DNS:
 * ```--dns-inwx-credentials ./inwx.cfg``` Gibt den Pfad zur Konfigurationsdatei mit den INWX-Zugangsdaten an. Diese Datei enthält üblicherweise Benutzernamen und Passwort oder Token.
 
 Ausführungsverhalten:
-* ```--noninteractive``` Führt Certbot ohne interaktive Abfragen aus – wichtig für Automatisierung (z. B. per Cronjob).
+* ```--noninteractive``` Führt Certbot ohne interaktive Abfragen aus - wichtig für Automatisierung (z. B. per Cronjob).
 * ```--force-renewal``` Erzwingt die Verlängerung, auch wenn das Zertifikat eigentlich noch nicht abläuft.
 
 ## Nextcloud Webserver mit NGINX und MySQL
@@ -798,7 +798,7 @@ inc_webserver.nix
       sslCertificate = "/var/letsencrypt/nixos_server.crt";
       sslCertificateKey = "/var/letsencrypt/nixos_server.key";
       extraConfig = ''
-        listen 443 ssl http2;
+        #listen 443 ssl http2;
         server_tokens off;
         ########## SSL Configuration ######################################################
         #ssl_certificate           /var/letsencrypt/domain.de/fullchain.crt;
@@ -1166,7 +1166,7 @@ Und natürlich sicherst du deine Eigene Daten z.B. in
 
 ## Restore
 
-NixOS einfach wie zu Anfang mit dem [ISO Image](#graphical-iso-image) installieren, dann die NixOS Konfigurationsdateien einspielen und einen Rebuild auslösen ```nix-channel -–update && nixos-rebuild switch -–upgrade``` schon habt Ihr euer System wieder so wie es war.
+NixOS einfach wie zu Anfang mit dem [ISO Image](#graphical-iso-image) installieren, dann die NixOS Konfigurationsdateien einspielen und einen Rebuild auslösen ```nix-channel --update && nixos-rebuild switch --upgrade``` schon habt Ihr euer System wieder so wie es war.
 
 ```
 /etc/nixos/configuration.nix
@@ -1199,7 +1199,7 @@ heute=`date -d "now" +Y-%m-%d`
 gestern=`date -d "1 day ago" +Y-%m-%d`
 loeschen=`date -d "7 day ago" +Y-%m-%d`
 backup_ziel='/mnt/backup/'
-exclude='--exclude=/mnt --exclude=/media --exclude=/proc --exclude=/sys --exclude=/tmp –exclude=/dev'
+exclude='--exclude=/mnt --exclude=/media --exclude=/proc --exclude=/sys --exclude=/tmp -exclude=/dev'
 
 # Auf gleichem Server aber andere Platte
 rsync -a --link-dest=$backup_ziel$gestern/ $exclude / $backup_ziel$heute
@@ -1207,17 +1207,17 @@ rsync -a --link-dest=$backup_ziel$gestern/ $exclude / $backup_ziel$heute
 rm -R $backup_ziel$loeschen
 
 # Beispiel für Backup auf anderen Server
-# rsync -a -e 'ssh -p 2222' --rsync-path="sudo rsync" --exclude=/mnt --exclude=/media --exclude=/proc --exclude=/sys --exclude=/tmp –exclude=/dev / lit@mein.server.net:/mnt/backup/YYYY-mm-dd/
+# rsync -a -e 'ssh -p 2222' --rsync-path="sudo rsync" --exclude=/mnt --exclude=/media --exclude=/proc --exclude=/sys --exclude=/tmp -exclude=/dev / lit@mein.server.net:/mnt/backup/YYYY-mm-dd/
 
 ```
 
 * ```#!/run/current-system/sw/bin/bash``` unter NixOS nicht ```#!/bin/bash```
-* ```rsync```: Archiv-Modus - Kopiert Dateien rekursiv und bewahrt Berechtigungen, Zeitstempel, Symbolische Links, etc. – sehr wichtig für Backups.
+* ```rsync```: Archiv-Modus - Kopiert Dateien rekursiv und bewahrt Berechtigungen, Zeitstempel, Symbolische Links, etc. - sehr wichtig für Backups.
 * ```-a```: Ist das Synchronisations-Tool, ideal für Backups oder zum syncen von 2 Verzeichnissen
 * ```--link-dest```: Hardlinks - Wenn eine Datei nicht verändert wurde, wird kein neuer Speicherplatz belegt, sondern es wird ein Hardlink auf die Datei im $gestern-Verzeichnis erstellt.
 * ```--exclude```: Ausschluss-Optionen für Verzeichnisse
 * ```/```: Das Quellverzeichnis
-* ```$backup_ziel$heute```: Zielverzeichnis für das heutige Backup – z. B. /mnt/backup/xxxx-xx-xx.
+* ```$backup_ziel$heute```: Zielverzeichnis für das heutige Backup - z. B. /mnt/backup/xxxx-xx-xx.
 
 
 ## MySQL-Dump
@@ -1288,9 +1288,9 @@ Hinweise beachten die bei ```nixos-rebuild --upgrade boot``` auftreten. Manchmal
 
 ## Update & Upgrade
 ```
-nix-channel -–update
+nix-channel --update
 
-nixos-rebuild switch -–upgrade
+nixos-rebuild switch --upgrade
 ```
 
 ## Garbagecollector
@@ -1300,7 +1300,7 @@ nix-collect-garbage -d
 
 ## Gesamter Update Prozess
 ```
-nix-collect-garbage -d && nix-channel -–update && nixos-rebuild switch -–upgrade
+nix-collect-garbage -d && nix-channel --update && nixos-rebuild switch --upgrade
 ```
 
 ## Programm Ausprobieren
